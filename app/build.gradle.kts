@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0" // this version matches your Kotlin version
+    id("kotlin-parcelize")
 }
 
 android {
@@ -50,8 +52,9 @@ android {
 }
 
 dependencies {
+    //*** Adding dependencies for Navigation Component
 
-    val nav_version = "2.7.7"
+    val nav_version = "2.7.4"
 
     implementation("androidx.navigation:navigation-compose:$nav_version")
 

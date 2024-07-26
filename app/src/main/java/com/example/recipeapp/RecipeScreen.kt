@@ -13,7 +13,6 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,19 +22,21 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 
 @Composable
-fun RecipeScreen(modifier: Modifier = Modifier, navigateToDetail: (Category) -> Unit){
-    val recipeViewModel: MainViewModel = viewModel()
-    val viewState by recipeViewModel.categoriesState
+fun RecipeScreen(modifier: Modifier = Modifier,
+                 navigateToDetail: (Category) -> Unit,
+                 viewstate: MainViewModel.RecipeState
+){
+
     Box(modifier = Modifier.fillMaxSize()){
         when{
-            viewState.loading -> {
+            viewstate.loading -> {
                 CircularProgressIndicator(modifier.align(Alignment.Center))
             }
 
-            viewState.error != null -> {
+            viewstate.error != null -> {
                 Text(text = "Error Occurred")
             } else -> {
-                CategoryScreen(categories = viewState.list, navigateToDetail)
+                CategoryScreen(categories = viewstate.list, navigateToDetail)
             }
         }
     }
